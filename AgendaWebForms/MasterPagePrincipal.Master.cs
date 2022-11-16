@@ -11,12 +11,10 @@ namespace AgendaWebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-
-        protected void Menu1_MenuItemClick(object sender, MenuEventArgs e)
-        {
-
+            if(Request.Cookies["login"] == null)
+            {
+                Response.Redirect("~/login.aspx");
+            }
         }
     }
 }

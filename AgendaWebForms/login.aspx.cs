@@ -17,9 +17,6 @@ namespace AgendaWebForms
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string email = txbEmail.Text;
-            string senha = txbSenha.Text;
-
             System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
             System.Configuration.ConnectionStringSettings connString;
             connString = rootWebConfig.ConnectionStrings.ConnectionStrings["ConnectionString"];
@@ -32,10 +29,12 @@ namespace AgendaWebForms
             cmd.Parameters.AddWithValue("email", txbEmail.Text);
             cmd.Parameters.AddWithValue("senha", txbSenha.Text);
             con.Open();
-            SqlDataReader registro = cmd.ExecuteReader();
+            SqlDataReader registro = cmd.ExecuteReader(); 
             if (registro.HasRows)
             {
-
+                HttpCookie login = new HttpCookie("login", txbEmail.Text);
+                Response.Cookies.Add(login);
+                Response.Redirect("~/index.aspx");
             }
             else
             {
